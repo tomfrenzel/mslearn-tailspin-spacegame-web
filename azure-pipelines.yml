@@ -39,9 +39,9 @@ steps:
   displayName: 'Prepare SonarCloud analysis'
   inputs:
     SonarCloud: 'SonarCloud connection 1'
-    organization: '$(organization)'
-    projectKey: '$(projectKey)'
-    projectName: '$(projectName)'
+    organization: 'tomfrenzel'
+    projectKey: 'ac136e9eadb442aef201fd722d4bd03660f10dd9'
+    projectName: 'space-game-web-4200'
     projectVersion: '$(Build.BuildNumber)'
     extraProperties: |
      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
