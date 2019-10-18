@@ -29,29 +29,12 @@ steps:
   displayName: 'Write build info'
   workingDirectory: $(wwwrootDir)
 
-- task: SonarCloudPrepare@1
-  displayName: 'Prepare SonarCloud analysis'
-  inputs:
-    SonarCloud: 'SonarCloud connection 1'
-    organization: '$(organization)'
-    projectKey: '$(projectKey)'
-    projectName: '$(projectName)'
-    projectVersion: '$(Build.BuildNumber)'
-    extraProperties: |
-     sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
-     sonar.exclusions=**/wwwroot/lib/**/*
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
   inputs:
     command: 'restore'
-    arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
     projects: '**/*.csproj'
-- task: SonarCloudAnalyze@1
-  displayName: 'Run SonarCloud code analysis'
 
-- task: SonarCloudPublish@1
-  displayName: 'Publish SonarCloud quality gate results'
-  
 - template: templates/build.yml
   parameters:
     buildConfiguration: 'Debug'
